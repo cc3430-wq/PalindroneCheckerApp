@@ -1,41 +1,38 @@
 import java.util.Scanner;
-import java.util.Stack;
-    interface PalindromeStrategy {
-        boolean check(String input);
-    }
-
-    class StackStrategy implements PalindromeStrategy {
-
-        public boolean check(String input) {
-
-            Stack<Character> stack = new Stack<>();
-
-            for (char c : input.toCharArray()) {
-                stack.push(c);
-            }
-
-            for (char c : input.toCharArray()) {
-                if (c != stack.pop())
-                    return false;
-            }
-
-            return true;
-        }
-    }
-
 public class PalindroneCheckerApp {
+    public static boolean checkPalindrome(String input) {
 
-        public static void main(String[] args) {
+        int start = 0;
+        int end = input.length() - 1;
 
-            Scanner sc = new Scanner(System.in);
+        while (start < end) {
 
-            System.out.print("Input: ");
-            String input = sc.nextLine();
+            if (input.charAt(start) != input.charAt(end))
+                return false;
 
-            PalindromeStrategy strategy = new StackStrategy();
-
-            boolean result = strategy.check(input);
-
-            System.out.println("Is Palindrome?: " + result);
+            start++;
+            end--;
         }
+
+        return true;
     }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Input: ");
+        String input = sc.nextLine();
+
+        long startTime = System.nanoTime();
+
+        boolean result = checkPalindrome(input);
+
+        long endTime = System.nanoTime();
+
+        long executionTime = endTime - startTime;
+
+        System.out.println("Is Palindrome?: " + result);
+        System.out.println("Execution Time: " + executionTime + " ns");
+    }
+}
